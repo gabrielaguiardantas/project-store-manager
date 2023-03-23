@@ -15,14 +15,14 @@ describe('Testes de unidade do model de produtos', function () {
     expect(result).to.be.deep.equal(products);
   });
 
-  // it('Recuperando um produto a partir do seu id', async function () {
-  //   // Arrange
-  //   sinon.stub(connection, 'execute').resolves([[passengers[0]]]);
-  //   // Act
-  //   const result = await passengerModel.findById(1);
-  //   // Assert
-  //   expect(result).to.be.deep.equal(passengers[0]);
-  // });
+  it('Recuperando um produto a partir do seu id', async function () {
+    // Arrange
+    sinon.stub(connection, 'execute').resolves([products]);
+    // Act
+    const result = await productsModel.findById(1);
+    // Assert
+    expect(result).to.be.deep.equal(products[0]);
+  });
 
   // it('Cadastrando um produto', async function () {
   //   // Arrange
