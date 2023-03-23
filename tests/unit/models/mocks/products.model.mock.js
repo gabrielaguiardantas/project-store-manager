@@ -17,6 +17,11 @@ const products = [
   },
 ];
 
+const newProduct = {
+  name: 'PC GAMER TOP'
+}
+
 module.exports = {
   products,
+  newProduct,
 };

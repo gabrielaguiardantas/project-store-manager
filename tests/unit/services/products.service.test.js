@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const { productsModel } = require('../../../src/models');
 const { productsService } = require('../../../src/services');
-const { allProducts } = require('./mocks/products.service.mock');
+const { allProducts, invalidName } = require('./mocks/products.service.mock');
 
 describe('Verificando service products', function () {
   describe('listagem de produtos', function () {
@@ -54,6 +54,18 @@ describe('Verificando service products', function () {
       expect(result.message).to.deep.equal(allProducts[0]);
     });
   });
+  describe('cadastro de uma pessoa passageira com valores inválidos', function () {
+    it('retorna um erro ao passar um nome inválido', async function () {
+      // arrange: Novamente não precisamos de um arranjo pois esse é um fluxo que não chama o model!
+
+      // act
+      const result = await productsService.createProduct(invalidName);
+
+      // assert
+      expect(result.type).to.equal('INVALID_VALUE');
+      expect(result.message).to.equal('"name" length must be at least 5 characters long');
+    });
+  })
   afterEach(function () {
     sinon.restore();
   });

@@ -5,6 +5,9 @@ const allProducts = [
   },
 ];
 
+const invalidName = 'a';
+
 module.exports = {
   allProducts,
+  invalidName,
 }
