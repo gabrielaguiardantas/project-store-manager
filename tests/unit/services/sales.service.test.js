@@ -39,6 +39,7 @@ describe('Testes de unidade do service de Sales', function () {
     it('retorna a sale que foi inserida com sucesso', async function () {
       // arrange
       sinon.stub(salesModel, 'createNewSale').resolves(3);
+      sinon.stub(salesModel, 'insertSaleProducts').resolves();
       // act
       const result = await salesService.createSale(validSale);
       // assert
