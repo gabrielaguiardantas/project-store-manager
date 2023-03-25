@@ -19,10 +19,10 @@ const createProduct = async (name) => {
   const error = schema.validateNewProduct(name);
   if (error.type) return error;
 
-  const newPassengerId = await productsModel.insert({ name });
-  const newPassenger = await productsModel.findById(newPassengerId);
+  const newProductId = await productsModel.insert({ name });
+  const newProduct = await productsModel.findById(newProductId);
 
-  return { type: null, message: newPassenger };
+  return { type: null, message: newProduct };
 };
 
 module.exports = {
