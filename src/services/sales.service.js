@@ -15,6 +15,50 @@ const createSale = async (arraySale) => {
   return { type: null, message: { id: newSaleId, itemsSold: arraySale } };
 };
 
+const findAll = async () => {
+  const sales = await salesModel.findAll();
+
+  const newArray = [];
+
+  await Promise.all(
+    sales.map(async (sale) => {
+      const [{ date }] = await salesModel.findById(sale.sale_id);
+      newArray.push({
+        date,
+        saleId: sale.sale_id,
+        quantity: sale.quantity,
+        productId: sale.product_id,
+      });
+    }),
+  );
+  return { type: null, message: newArray };
+};
+
+const findBySaleId = async (id) => {
+  const error = schema.validateId(id);
+  if (error.type) return error;
+
+  const sale = await salesModel.findBySaleId(id);
+  if (sale.length === 0) return { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
+
+  const newArray = [];
+
+  await Promise.all(
+    sale.map(async (itemSold) => {
+      const [{ date }] = await salesModel.findById(itemSold.sale_id);
+      newArray.push({
+        date,
+        quantity: itemSold.quantity,
+        productId: itemSold.product_id,
+      });
+    }),
+  );
+
+  return { type: null, message: newArray };
+ };
+
 module.exports = {
   createSale,
+  findAll,
+  findBySaleId,
 };

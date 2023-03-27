@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const { salesModel } = require('../../../src/models');
 const { salesService } = require('../../../src/services');
-const { invalidSale, saleWithoutProductId, saleWithoutQuantity, saleWithInvalidQuantity, validSale, validSaleResult } = require('./mocks/sales.service.mock');
+const { saleWithoutProductId, saleWithoutQuantity, saleWithInvalidQuantity, validSale, validSaleResult, allSales, allSalesConverted, dateMock, specificSale } = require('./mocks/sales.service.mock');
 
 
 describe('Testes de unidade do service de Sales', function () {
@@ -45,6 +45,30 @@ describe('Testes de unidade do service de Sales', function () {
       // assert
       expect(result.type).to.equal(null);
       expect(result.message).to.deep.equal(validSaleResult);
+    });
+  });
+  describe('listando todas as sales da sales_products', function () {
+    it('retorna todas as sales', async function () {
+      // arrange
+      sinon.stub(salesModel, 'findAll').resolves(allSales);
+      sinon.stub(salesModel, 'findById').resolves(dateMock);
+      // act
+      const result = await salesService.findAll();
+      // assert
+      expect(result.type).to.be.equal(null);
+      expect(result.message).to.be.deep.equal(allSalesConverted);
+    });
+    it('retorna uma sale específica ao passar o SaleId', async function () {
+      // arrange
+      sinon.stub(salesModel, 'findById').resolves(dateMock);
+      // act
+      const result = await salesService.findBySaleId(2);
+      // assert
+      expect(result.type).to.be.equal(null);
+      expect(result.message).to.be.deep.equal(specificSale);
     })
-  })
-})
+  });
+  afterEach(function () {
+    sinon.restore();
+  });
+});

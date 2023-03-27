@@ -1,13 +1,12 @@
 const express = require('express');
 const { salesController } = require('../controllers');
-// const validateNewProductFields = require('../middlewares/validateNewProductFields');
 
 const router = express.Router();
 
-router.post(
-  '/',
-  // validateNewProductFields,
-  salesController.createSale,
-);
+router.post('/', salesController.createSale);
+
+router.get('/:id', salesController.getSales);
+
+router.get('/', salesController.listSales);
 
 module.exports = router;
