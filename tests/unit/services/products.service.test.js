@@ -54,7 +54,7 @@ describe('Verificando service products', function () {
       expect(result.message).to.deep.equal(allProducts[0]);
     });
   });
-  describe('cadastro de uma pessoa passageira com valores inválidos', function () {
+  describe('cadastro de um produto com valores inválidos', function () {
     it('retorna um erro ao passar um nome inválido', async function () {
       // arrange: Novamente não precisamos de um arranjo pois esse é um fluxo que não chama o model!
 
@@ -64,6 +64,18 @@ describe('Verificando service products', function () {
       // assert
       expect(result.type).to.equal('INVALID_VALUE');
       expect(result.message).to.equal('"name" length must be at least 5 characters long');
+    });
+  });
+  describe('atualização de um produto', function () {
+    it('retorna o produto atualizado', async function () {
+      // arrange
+      sinon.stub(productsModel, 'update').resolves();
+      sinon.stub(productsModel, 'findById').resolves({ id: 1, name: 'Martelo do Batman' });
+      // act
+      const result = await productsService.updateProduct(1, "Martelo do Batman");
+      // assert
+      expect(result.type).to.equal(null);
+      expect(result.message).to.deep.equal({ id: 1, name: 'Martelo do Batman' });
     });
   });
   afterEach(function () {

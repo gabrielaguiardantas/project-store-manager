@@ -11,6 +11,8 @@ router.get(
   productsController.getProducts,
 );
 
+router.put('/:id', productsController.updateProduct);
+
 router.post(
   '/',
   validateNewProductFields,

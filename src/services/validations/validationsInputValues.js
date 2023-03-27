@@ -12,9 +12,14 @@ const validateId = (id) => {
 
 const validateNewProduct = (name) => {
   const { error } = addProductSchema
-    .validate({ name });
-  if (error) return { type: 'INVALID_VALUE', message: error.message };
-  
+    .validate(name);
+  if (error) {
+    if (!error.message
+      .includes('least 5')) {
+      return { type: 'MISSING_ARGUMENTS', message: error.message };
+    }
+    return { type: 'INVALID_VALUE', message: error.message };
+  }
   return { type: null, message: '' };
 };
 

@@ -1,4 +1,3 @@
-const decamelize = require('decamelize');
 const connection = require('./connection');
 
 const findAll = async () => {
@@ -15,23 +14,25 @@ const findById = async (productId) => {
   return result;
 };
 
-const insert = async (product) => {
-  const columns = Object.keys(product).map((str) => decamelize(str)).join(', ');
-
-  const placeholders = Object.keys(product)
-    .map((_key) => '?')
-    .join(', ');
-
+const insert = async (name) => {
   const [{ insertId }] = await connection.execute(
-    `INSERT INTO StoreManager.products (${columns}) VALUE (${placeholders})`,
-    [...Object.values(product)],
+    'INSERT INTO StoreManager.products (name) VALUE (?)',
+    [name],
   );
-
   return insertId;
+};
+
+const update = async (productId, name) => {
+  const [{ affectedRows }] = await connection.execute(
+    'UPDATE StoreManager.products SET name = ? WHERE id = ?',
+    [name, productId],
+  );
+  return affectedRows;
 };
 
 module.exports = {
   findAll,
   findById,
   insert,
+  update,
 };

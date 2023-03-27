@@ -156,6 +156,42 @@ describe('Teste de unidade do productsController', function () {
       expect(res.json).to.have.been.calledWith({ message: '"name" length must be at least 5 characters long' });
     });
   });
+  describe('atualizando o nome de um produto', function () {
+    it('retorna 200 e o produto atualizado', async function () {
+      // arrange
+      const res = {};
+      const req = {
+        body: {
+          name: 'Martelo do Batman',
+        },
+        params: {
+          id: 1
+        }
+      };
+
+      /* O dublê de `res.status` e `res.json` é o mesmo padrão que já fizemos anteriormente */
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(productsService, 'updateProduct')
+        .resolves({
+          type: null, message: {
+            "id": 1,
+            "name": "Martelo do Batman"
+          }
+        });
+      // act
+      await productsController.updateProduct(req, res);
+      // assert
+      expect(res.status).to.have.been.calledWith(200);
+      /* Ajustamos a mensagem de erro esperada para ser a mensagem gerada pelo service */
+      expect(res.json).to.have.been.calledWith({
+        "id": 1,
+        "name": "Martelo do Batman"
+      });
+    });
+  });
   afterEach(function () {
     sinon.restore();
   });
