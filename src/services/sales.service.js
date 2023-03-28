@@ -15,6 +15,28 @@ const createSale = async (arraySale) => {
   return { type: null, message: { id: newSaleId, itemsSold: arraySale } };
 };
 
+const updateSaleProducts = async (saleId, arraySale) => {
+  const error = await schema.validateNewSale(arraySale);
+  if (error.type) return error;
+
+  const saleBeforeDeletion = await salesModel.findById(saleId);
+  if (saleBeforeDeletion.length >= 1) {
+    await Promise.all(
+      arraySale.map(async ({ productId, quantity }) => {
+        await salesModel.updateSaleProducts(saleId, productId, quantity);
+      }),
+    );
+    const saleAfterDeletion = await salesModel.findById(saleId);
+    if (saleBeforeDeletion === saleAfterDeletion) {
+      return {
+        type: 'UPDATE ERROR',
+        message: 'UPDATE METHOD UNSUCCESSFULL',
+      };
+    } return { type: null, message: { saleId, itemsUpdated: arraySale } };
+  }
+  return { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
+};
+
 const deleteSale = async (id) => {
   const saleBeforeDeletion = await salesModel.findById(id);
   if (saleBeforeDeletion.length >= 1) {
@@ -78,4 +100,5 @@ module.exports = {
   findAll,
   findBySaleId,
   deleteSale,
+  updateSaleProducts,
 };

@@ -77,6 +77,23 @@ const dateMock = [
  { id: 1, date: '2023-03-26T21:31:14.000Z' } 
 ];
 
+const updatedSaleMock = [
+  {
+    "productId": 3,
+    "quantity": 20
+  }
+];
+
+const updatedSaleMockConverted = {
+  "saleId": 2,
+  "itemsUpdated": [
+    {
+      "productId": 3,
+      "quantity": 20
+    }
+  ]
+};
+
 module.exports = {
   saleWithoutProductId,
   saleWithoutQuantity,
@@ -86,5 +103,7 @@ module.exports = {
   allSales,
   allSalesConverted,
   dateMock,
-  specificSale
+  specificSale,
+  updatedSaleMock,
+  updatedSaleMockConverted
 }

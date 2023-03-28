@@ -31,11 +31,30 @@ const specificSale = [
     "productId": 3,
     "quantity": 15
   }
-]; 
+];
+
+const updateSaleMock = [
+  {
+    "productId": 3,
+    "quantity": 20
+  }
+];
+
+const updateSaleMockConverted = {
+  "saleId": 2,
+  "itemsUpdated": [
+    {
+      "productId": 3,
+      "quantity": 20
+    }
+  ]
+};
 
 module.exports = {
   saleMock,
   newSaleMock,
   allSales,
   specificSale,
+  updateSaleMock,
+  updateSaleMockConverted
 }

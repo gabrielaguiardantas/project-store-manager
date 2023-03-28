@@ -3,7 +3,7 @@ const sinon = require('sinon');
 const { salesModel } = require('../../../src/models');
 const { deleteSale } = require('../../../src/models/sales.model');
 const { salesService } = require('../../../src/services');
-const { saleWithoutProductId, saleWithoutQuantity, saleWithInvalidQuantity, validSale, validSaleResult, allSales, allSalesConverted, dateMock, specificSale } = require('./mocks/sales.service.mock');
+const { saleWithoutProductId, saleWithoutQuantity, saleWithInvalidQuantity, validSale, validSaleResult, allSales, allSalesConverted, dateMock, specificSale, updatedSaleMock, updatedSaleMockConverted } = require('./mocks/sales.service.mock');
 
 
 describe('Testes de unidade do service de Sales', function () {
@@ -79,6 +79,17 @@ describe('Testes de unidade do service de Sales', function () {
       expect(result.type).to.equal(null);
       expect(result.message).equal(null);
     })
+  });
+  describe('atualizando uma sale', function () {
+    it('retorna a sale atualizada ao receber que ao menos uma linha foi afetada (caso de sucesso)', async function () {
+      // arrange
+      sinon.stub(salesModel, 'updateSaleProducts').resolves(2, 3, 20);
+      // act
+      const result = await salesService.updateSaleProducts(2, updatedSaleMock);
+      // assert
+      expect(result.type).to.equal(null);
+      expect(result.message).to.deep.equal(updatedSaleMockConverted);
+    });
   })
   afterEach(function () {
     sinon.restore();

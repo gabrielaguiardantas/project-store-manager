@@ -3,7 +3,7 @@ const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
 const { salesController } = require('../../../src/controllers');
 const { salesService } = require('../../../src/services');
-const { saleMock, newSaleMock, allSales, specificSale } = require('./mocks/sales.controller.mock');
+const { saleMock, newSaleMock, allSales, specificSale, updateSaleMock, updateSaleMockConverted } = require('./mocks/sales.controller.mock');
 
 
 
@@ -151,6 +151,33 @@ describe('Teste de unidade do salesController', function () {
       expect(res.status).to.have.been.calledWith(204);
       /* Ajustamos a mensagem de erro esperada para ser a mensagem gerada pelo service */
       expect(res.json).to.have.been.calledWith();
+    });
+  });
+  describe('atualizando uma sale', function () {
+    it('retorna 200 com a sale atualizada', async function () {
+      // arrange
+      const res = {};
+      const req = {
+        body: updateSaleMock,
+        params: {
+          id: 2
+        }
+      };
+
+      /* O dublê de `res.status` e `res.json` é o mesmo padrão que já fizemos anteriormente */
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(salesService, 'updateSaleProducts')
+        .resolves({
+          type: null, message: updateSaleMockConverted});
+      // act
+      await salesController.updateSale(req, res);
+      // assert
+      expect(res.status).to.have.been.calledWith(200);
+      /* Ajustamos a mensagem de erro esperada para ser a mensagem gerada pelo service */
+      expect(res.json).to.have.been.calledWith(updateSaleMockConverted);
     });
   });
   afterEach(function () {

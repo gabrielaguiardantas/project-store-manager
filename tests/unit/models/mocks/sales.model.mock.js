@@ -10,7 +10,15 @@ const allSales = [[
   { sale_id: 2, product_id: 3, quantity: 15 }
 ]];
 
+const updateSaleMock = [
+  {
+    "productId": 1,
+    "quantity": 10
+  }
+];
+
 module.exports = {
   newSale,
   allSales,
+  updateSaleMock,
 };
