@@ -42,6 +42,14 @@ describe('Testes de unidade do model de produtos', function () {
     // Assert
     expect(result).to.equal(1);
   });
+  it('Deletando um produto a partir do seu id', async function () {
+    // Arrange
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+    // Act
+    const result = await productsModel.deleteProduct(2);
+    // Assert
+    expect(result).to.equal(1);
+  });
   afterEach(function () {
     sinon.restore();
   });

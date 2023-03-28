@@ -11,6 +11,8 @@ router.get(
   productsController.getProducts,
 );
 
+router.delete('/:id', productsController.deleteProduct);
+
 router.put('/:id', productsController.updateProduct);
 
 router.post(

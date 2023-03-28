@@ -30,11 +30,26 @@ const updateProduct = async (productId, name) => {
   if (error.type) return error;
   
   const updatedProduct = await productsModel.findById(productId);
-  console.log(updatedProduct, productId, name);
   if (updatedProduct) {
-    await productsModel.update(productId, name);
+   await productsModel.update(productId, name);
    const updatedProduct2 = await productsModel.findById(productId); 
-    return { type: null, message: updatedProduct2 };
+   return { type: null, message: updatedProduct2 };
+  }
+  return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+};
+
+const deleteProduct = async (id) => {
+  const updatedProduct = await productsModel.findById(id);
+  if (updatedProduct) {
+    await productsModel.deleteProduct(id);
+    const updatedProduct2 = await productsModel.findById(id);
+    if (updatedProduct === updatedProduct2) {
+      return {
+        type: 'DELETION ERROR',
+        message: 'DELETION METHOD UNSUCCESSFULL',
+      };
+    }
+    return { type: null, message: null };
   }
   return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
 };
@@ -44,4 +59,5 @@ module.exports = {
   findById,
   createProduct,
   updateProduct,
+  deleteProduct,
 };

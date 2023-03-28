@@ -78,6 +78,17 @@ describe('Verificando service products', function () {
       expect(result.message).to.deep.equal({ id: 1, name: 'Martelo do Batman' });
     });
   });
+  describe('deleção de um produto', function () {
+    it('não tem retorno ao receber que uma linha foi afetada (caso de sucesso)', async function () {
+      // arrange
+      sinon.stub(productsModel, 'deleteProduct').resolves(1);
+      // act
+      const result = await productsService.deleteProduct(2);
+      // assert
+      expect(result.type).to.equal(null);
+      expect(result.message).equal(null);
+    })
+  })
   afterEach(function () {
     sinon.restore();
   });

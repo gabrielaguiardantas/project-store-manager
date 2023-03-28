@@ -99,7 +99,7 @@ describe('Teste de unidade do productsController', function () {
       expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
     });
   });
-  describe('Cadastrando uma nova pessoa passageira', function () {
+  describe('Cadastrando um novo produto', function () {
     it('ao enviar dados válidos deve salvar com sucesso!', async function () {
       // Arrange
       const res = {};
@@ -190,6 +190,32 @@ describe('Teste de unidade do productsController', function () {
         "id": 1,
         "name": "Martelo do Batman"
       });
+    });
+  });
+  describe('deletando um produto', function () {
+    it('retorna 204 sem nenhuma resposta no body', async function () {
+      // arrange
+      const res = {};
+      const req = {
+        params: {
+          id: 1
+        }
+      };
+
+      /* O dublê de `res.status` e `res.json` é o mesmo padrão que já fizemos anteriormente */
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(productsService, 'deleteProduct')
+        .resolves({
+          type: null, message: null});
+      // act
+      await productsController.deleteProduct(req, res);
+      // assert
+      expect(res.status).to.have.been.calledWith(204);
+      /* Ajustamos a mensagem de erro esperada para ser a mensagem gerada pelo service */
+      expect(res.json).to.have.been.calledWith();
     });
   });
   afterEach(function () {
