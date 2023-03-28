@@ -18,7 +18,7 @@ describe('Verificando service products', function () {
       expect(result.message).to.deep.equal(allProducts);
     });
   });
-  describe('busca de um produto', function () {
+  describe('busca de um produto pelo ID', function () {
     it('retorna um erro caso receba um ID inválido', async function () {
       // arrange: Especificamente nesse it não temos um arranjo pois nesse fluxo o model não é chamado!
 
@@ -54,6 +54,19 @@ describe('Verificando service products', function () {
       expect(result.message).to.deep.equal(allProducts[0]);
     });
   });
+  describe('busca de um produto pelo termo pesquisado', function () {
+    it('retorna listagem de produtos que o name inclui o termo pesquisado', async function () {
+      // arrange
+      sinon.stub(productsModel, 'findByTerm').resolves(allProducts);
+      
+      // act
+      const result = await productsService.findByTerm('Ma');
+
+      // assert
+      expect(result.type).to.equal(null);
+      expect(result.message).to.deep.equal(allProducts);
+    })
+  })
   describe('cadastro de um produto com valores inválidos', function () {
     it('retorna um erro ao passar um nome inválido', async function () {
       // arrange: Novamente não precisamos de um arranjo pois esse é um fluxo que não chama o model!
@@ -87,8 +100,8 @@ describe('Verificando service products', function () {
       // assert
       expect(result.type).to.equal(null);
       expect(result.message).equal(null);
-    })
-  })
+    });
+  });
   afterEach(function () {
     sinon.restore();
   });

@@ -4,18 +4,19 @@
     "colId": "history",
     "containerId": "",
     "name": "localhost:3001/products",
-    "url": "localhost:3001/sales",
-    "method": "POST",
+    "url": "localhost:3001/products/search?q=Ma",
+    "method": "GET",
     "sortNum": 0,
     "created": "2023-03-22T21:02:50.949Z",
-    "modified": "2023-03-25T19:01:33.544Z",
+    "modified": "2023-03-28T20:51:43.393Z",
     "headers": [],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "[\n  {\n    \"productId\": 1,\n    \"quantity\": 1\n  },\n  {\n    \"productId\": 2,\n    \"quantity\": 5\n  }\n]\n",
-      "form": []
-    },
+    "params": [
+      {
+        "name": "q",
+        "value": "Ma",
+        "isPath": false
+      }
+    ],
     "tests": []
   }
 ]

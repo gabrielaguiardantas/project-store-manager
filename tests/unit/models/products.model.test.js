@@ -50,6 +50,14 @@ describe('Testes de unidade do model de produtos', function () {
     // Assert
     expect(result).to.equal(1);
   });
+  it('Recuperando um ou mais produtos pelo termo pesquisado', async function () {
+    // Arrange
+    sinon.stub(connection, 'execute').resolves([products]);
+    // Act
+    const result = await productsModel.findByTerm('dia');
+    // Assert
+    expect(result).to.be.deep.equal(products);
+  })
   afterEach(function () {
     sinon.restore();
   });

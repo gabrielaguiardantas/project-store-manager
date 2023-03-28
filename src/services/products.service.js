@@ -15,6 +15,11 @@ const findById = async (id) => {
   return { type: null, message: product };
 };
 
+const findByTerm = async (term) => {
+  const products = await productsModel.findByTerm(term);
+  return { type: null, message: products };
+};
+
 const createProduct = async (name) => {
   const error = schema.validateNewProduct(name);
   if (error.type) return error;
@@ -60,4 +65,5 @@ module.exports = {
   createProduct,
   updateProduct,
   deleteProduct,
+  findByTerm,
 };

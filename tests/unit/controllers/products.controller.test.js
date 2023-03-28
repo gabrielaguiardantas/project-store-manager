@@ -29,7 +29,7 @@ describe('Teste de unidade do productsController', function () {
       expect(res.json).to.have.been.calledWith(allProducts);
     });
   });
-  describe('Buscando um produto', function () {
+  describe('Buscando um produto pelo seu Id', function () {
     it('deve responder com 200 e os dados do banco quando existir', async function () {
       // Arrange
       const res = {};
@@ -99,6 +99,28 @@ describe('Teste de unidade do productsController', function () {
       expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
     });
   });
+  describe('buscando produto pelo termo pesquisado', function () {
+    it('retorna 200 e os produtos que incluírem o termo pesquisado no seu nome', async function () {
+      // Arrange
+      const res = {};
+      const req = {
+        query: { q: 'Ma' },
+      };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(productsService, 'findByTerm')
+        .resolves({ type: null, message: allProducts });
+
+      // Act
+      await productsController.getProductsByTerm(req, res);
+
+      // Assert
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(allProducts);
+    });
+  })
   describe('Cadastrando um novo produto', function () {
     it('ao enviar dados válidos deve salvar com sucesso!', async function () {
       // Arrange
