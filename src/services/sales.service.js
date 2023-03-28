@@ -15,6 +15,22 @@ const createSale = async (arraySale) => {
   return { type: null, message: { id: newSaleId, itemsSold: arraySale } };
 };
 
+const deleteSale = async (id) => {
+  const saleBeforeDeletion = await salesModel.findById(id);
+  if (saleBeforeDeletion.length >= 1) {
+    await salesModel.deleteSale(id);
+    const saleAfterDeletion = await salesModel.findById(id);
+    if (saleBeforeDeletion === saleAfterDeletion) {
+      return {
+        type: 'DELETION ERROR',
+        message: 'DELETION METHOD UNSUCCESSFULL',
+      };
+    }
+    return { type: null, message: null };
+  }
+  return { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
+};
+
 const findAll = async () => {
   const sales = await salesModel.findAll();
 
@@ -61,4 +77,5 @@ module.exports = {
   createSale,
   findAll,
   findBySaleId,
+  deleteSale,
 };

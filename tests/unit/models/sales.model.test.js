@@ -39,9 +39,19 @@ describe('Testes de unidade do model de Sales', function () {
       // act
       const result = await salesModel.findById(2);
       // assert
-      expect(result).to.be.deep.equal(allSales);    
+      expect(result).to.be.deep.equal(allSales);
     })
-  })
+  });
+  describe('deletando uma sale pelo seu id', function () {
+    it('deletando uma sale específica', async function () {
+    // Arrange
+    sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+    // Act
+    const result = await salesModel.deleteSale(2);
+    // Assert
+    expect(result).to.equal(1);
+    });
+  });
   afterEach(function () {
     sinon.restore();
   });

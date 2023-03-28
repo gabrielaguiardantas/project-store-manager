@@ -1,6 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 const { salesModel } = require('../../../src/models');
+const { deleteSale } = require('../../../src/models/sales.model');
 const { salesService } = require('../../../src/services');
 const { saleWithoutProductId, saleWithoutQuantity, saleWithInvalidQuantity, validSale, validSaleResult, allSales, allSalesConverted, dateMock, specificSale } = require('./mocks/sales.service.mock');
 
@@ -68,6 +69,17 @@ describe('Testes de unidade do service de Sales', function () {
       expect(result.message).to.be.deep.equal(specificSale);
     })
   });
+  describe('deleção de uma sale', function () {
+    it('não tem retorno ao receber que uma linha foi afetada (caso de sucesso)', async function () {
+      // arrange
+      sinon.stub(salesModel, 'deleteSale').resolves(1);
+      // act
+      const result = await salesService.deleteSale(2);
+      // assert
+      expect(result.type).to.equal(null);
+      expect(result.message).equal(null);
+    })
+  })
   afterEach(function () {
     sinon.restore();
   });

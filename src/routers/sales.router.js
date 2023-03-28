@@ -7,6 +7,8 @@ router.post('/', salesController.createSale);
 
 router.get('/:id', salesController.getSales);
 
+router.delete('/:id', salesController.deleteSale);
+
 router.get('/', salesController.listSales);
 
 module.exports = router;

@@ -127,6 +127,32 @@ describe('Teste de unidade do salesController', function () {
       expect(res.json).to.have.been.calledWith({ message: 'Sale not found' });
     });
   });
+  describe('deletando uma sale', function () {
+    it('retorna 204 sem nenhuma resposta no body', async function () {
+      // arrange
+      const res = {};
+      const req = {
+        params: {
+          id: 1
+        }
+      };
+
+      /* O dublê de `res.status` e `res.json` é o mesmo padrão que já fizemos anteriormente */
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon
+        .stub(salesService, 'deleteSale')
+        .resolves({
+          type: null, message: null});
+      // act
+      await salesController.deleteSale(req, res);
+      // assert
+      expect(res.status).to.have.been.calledWith(204);
+      /* Ajustamos a mensagem de erro esperada para ser a mensagem gerada pelo service */
+      expect(res.json).to.have.been.calledWith();
+    });
+  });
   afterEach(function () {
     sinon.restore();
   });

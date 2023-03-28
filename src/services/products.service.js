@@ -39,11 +39,11 @@ const updateProduct = async (productId, name) => {
 };
 
 const deleteProduct = async (id) => {
-  const updatedProduct = await productsModel.findById(id);
-  if (updatedProduct) {
+  const productBeforeDeletion = await productsModel.findById(id);
+  if (productBeforeDeletion) {
     await productsModel.deleteProduct(id);
-    const updatedProduct2 = await productsModel.findById(id);
-    if (updatedProduct === updatedProduct2) {
+    const productAfterDeletion = await productsModel.findById(id);
+    if (productBeforeDeletion === productAfterDeletion) {
       return {
         type: 'DELETION ERROR',
         message: 'DELETION METHOD UNSUCCESSFULL',
