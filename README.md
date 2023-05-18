@@ -1,10 +1,15 @@
-# :construction: README em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto.
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+# Projeto Store Manager #
+
+Vigésimo primeiro projeto do curso de desenvolvimento Web da Trybe e quinto projeto do módulo de backend. Desenvolvi o backend de uma aplicação com CRUD ( Create, Read, Update e Delete) para produtos e vendas num banco de dados de uma loja virtual. A novidade foi a estruturação em camadas com a arquitetura MSC. Principais conhecimentos desenvolvidos e aperfeiçoados neste projeto: 
+
+- Mocha
+- Sinon
+- Jest
+- Express
+- SQL
+- Javascript
+- Rotas 
+- Thunder Client
+- Arquitetura MSC
+
+Features implementadas: 
