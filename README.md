@@ -12,4 +12,7 @@ Vigésimo primeiro projeto do curso de desenvolvimento Web da Trybe e quinto pro
 - Thunder Client
 - Arquitetura MSC
 
-Features implementadas: 
+## Features implementadas: ##
+
+![features-project21-1](https://github.com/gabrielaguiardantas/project-store-manager/assets/110852595/ec417804-6a47-4fa3-b6d8-5f9127f6af94)
+![features-project21-2](https://github.com/gabrielaguiardantas/project-store-manager/assets/110852595/e9d18109-db5d-4e8a-84f1-98983733ba03)
